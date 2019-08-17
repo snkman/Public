@@ -35,11 +35,11 @@ class CfgMods
 class GLX_Path
 {
 	// ///////////// PBO ////////////////
-	// GLX_Root = "\GLX_System\";
+	GLX_Root = "\GLX_System\";
 	// /////////////////////////////////////
 
 	// ///////////// Script ////////////////
-	GLX_Root = "\@GLX\AddOns\GLX_System\";
+	// GLX_Root = "\@GLX\AddOns\GLX_System\";
 	// ///////////////////////////////////////
 };
 
