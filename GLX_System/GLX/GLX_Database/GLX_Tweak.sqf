@@ -10,7 +10,7 @@ if (isNil "GLX_Tweak") then
 {
 	GLX_Tweak =
 	[
-		[5, 10, 15]
+		[5, 10, 15, 10, 5]
 	];
 	
 	if (isFilePatchingEnabled) then

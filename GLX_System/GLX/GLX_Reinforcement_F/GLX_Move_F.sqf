@@ -55,27 +55,9 @@ GLX_Move_F = [
 	
 	_time = (_time + 5);
 	
-	// private _distance = 100;
-	
 	if (_knowsAbout > 0) then
 	{
-		private _leader = (leader _group );
-		
-		if (False) then
-		{
-		
-		if (_enemy distance _leader < _distance) then
-		{
-			_distance = (_enemy distance2D _leader);
-			
-			_distance = (_distance - random _distance);
-		}
-		else
-		{
-			_distance = (_distance - random 100);
-		};
-		
-		};
+		private _leader = (leader _group);
 		
 		_direction = (_direction + _random);
 		
@@ -156,8 +138,6 @@ GLX_Move_F = [
 			_value = selectRandom _tweak;
 		};
 		
-		// _value = 3 + (random 10);
-		
 		if (_random > 0) then
 		{
 			_random = _value;
@@ -167,43 +147,18 @@ GLX_Move_F = [
 			_random = - _value;
 		};
 		
-		player sideChat format ["GLX_Move_F > Random > %1 > %2 > %3 > %4 > %5", _group, _random, (_time - time), _distance, (combatMode _group) ];
-		
-		if (False) then
-		{
-		
-		if (_random > 0) then
-		{
-			if (_tweak isEqualTo [] ) exitWith
-			{
-				_random = (random 15);
-			};
-			
-			_random = selectRandom _tweak;
-			
-			// _random = selectRandom [5, 7, 13, 15];
-		}
-		else
-		{
-			if (_tweak isEqualTo [] ) exitWith
-			{
-				_random = - (random 15);
-			};
-			
-			_random = selectRandom _tweak;
-			
-			_random = (- _random);
-			
-			// _random = selectRandom [-5, -7, -13, -15];
-		};
-		
-		};
+		// player sideChat format ["GLX_Move_F > Random > %1 > %2 > %3 > %4 > %5", _group, _random, (_time - time), _distance, (combatMode _group) ];
 		
 		if (_enemy distance _leader > 200) then
 		{
-			_value = 1 + (random 1);
+			_value = 1;
 			
-			// _random = (_random / 2);
+			_value = _value + (random 1);
+			
+			if (_enemy distance _leader > 300) then
+			{
+				_value = _value + (random 1);
+			};
 			
 			_random = (_random / _value);
 		};
@@ -214,13 +169,6 @@ GLX_Move_F = [
 		
 		if (floor (random 100) < 50) then
 		{
-			_value = 50;
-			
-			if (_bool) then
-			{
-				_value = 35;
-			};
-			
 			if (_distance > 200) exitWith
 			{
 				// _time = (_time + 5);
@@ -267,11 +215,7 @@ GLX_Move_F = [
 	}
 	else
 	{
-		_distance = 100;
-		
-		_direction = (_direction + _random);
-		
-		_distance = (_distance - random 50);
+		[_enemy, _group, _logic] call (GLX_Move_F select 1);
 	};
 	
 	_position = [_logic, _distance, _direction] call GLX_Real_Pos_F;
