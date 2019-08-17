@@ -25,5 +25,5 @@
   // Note: Empty array [] means fully randomized A.I. movement system.
   // Description: Distance from current position to next position in meters.
   // Example: [3, 5, 7, 10] or [3, 13, 5, 15] or [1, 3, 5, 7, 10] or [10, 13, 15] or [15]
-  // 0 - 30, default is []
-	// GLX_Tweak set [0, [] ];
+  // 0 - 30, default is [5, 10, 15, 10, 5] v.1.0.03 []
+	// GLX_Tweak set [0, [5, 10, 15, 10, 5] ];
