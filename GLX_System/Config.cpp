@@ -11,7 +11,7 @@ class CfgPatches
 	{
 		units[] = {};
 		weapons[] = {};
-		version = "1.0.05";
+		version = "1.0.13";
 		requiredVersion = 1.82;
 		versionDesc = "Group Link - X";
 		requiredAddons[] = {"A3_Data_F","A3_Characters_F"};
@@ -27,7 +27,7 @@ class CfgMods
 		author = "=\SNKMAN/=";
 		name = "Group Link - X";
 		picture = "A3\Ui_f\data\Logos\arma3_expansion_alpha_ca";
-		action = "https://forums.bohemia.net/forums/topic/221659-tactical-combat-link-typex/";
+		action = "https://forums.bohemia.net/forums/topic/224903-group-link-x-test-wip/";
 		overview = "Group Link - X is a highly dynamic A.I. improvement and enhancement modification for ARMA 3.";
 	};
 };
@@ -35,11 +35,11 @@ class CfgMods
 class GLX_Path
 {
 	// ///////////// PBO ////////////////
-	GLX_Root = "\GLX_System\";
+	// GLX_Root = "\GLX_System\";
 	// /////////////////////////////////////
 
 	// ///////////// Script ////////////////
-	// GLX_Root = "\@GLX\AddOns\GLX_System\";
+	GLX_Root = "\@GLX\AddOns\GLX_System\";
 	// ///////////////////////////////////////
 };
 
@@ -94,7 +94,7 @@ class RscDisplayMain : RscStandardDisplay
 			x = "(SafeZoneH + SafeZoneX) - (1 - 0.45)";
 			y = "(SafeZoneH + SafeZoneY) - (1 - 0.88)";
 
-			text = "Version: 1.0.05 W.I.P.";
+			text = "Version: 1.0.13 W.I.P.";
 		};
 	};
 };
