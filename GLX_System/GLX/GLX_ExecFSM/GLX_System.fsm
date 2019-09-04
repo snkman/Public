@@ -14,7 +14,7 @@ link3[] = {2,4};
 link4[] = {3,2};
 link5[] = {4,5};
 globals[] = {0.000000,0,0,0,0,640,480,1,7,6316128,1,-388.261749,450.928467,461.363647,-391.162170,881,895,1};
-window[] = {2,-1,-1,-32000,-32030,1017,250,1690,250,3,899};
+window[] = {2,-1,-1,-1,-31,942,175,1615,175,3,899};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -48,8 +48,6 @@ class FSM
                          "" \n
                          "private _end = False;" \n
                          "" \n
-                         "// private _knowsAbout = 0;" \n
-                         "" \n
                          "private _icon = objNull;" \n
                          "" \n
                          "if (floor (random 100) < 50) then" \n
@@ -76,7 +74,7 @@ class FSM
                          "	" \n
                          "	_units doWatch (getPos _enemy);" \n
                          "	" \n
-                         "	player sideChat format [""GLX_System.FSM > KnowsAbout > %1 > %2 > %3"", _group, _enemy, _knowsAbout];" \n
+                         "	// player sideChat format [""GLX_System.FSM > KnowsAbout > %1 > %2"", _group, _knowsAbout];" \n
                          "};" \n
                          "" \n
                          "_group setVariable [""GLX_Move"", _position];" \n
@@ -124,7 +122,7 @@ class FSM
                          "	_icon = createVehicle [""Sign_Arrow_Large_Pink_F"", (getPos _leader), [], 0, ""CAN_COLLIDE""];" \n
                          "};" \n
                          "" \n
-                         "private [""_units"",""_sleep"",""_knowsAbout"",""_string""];"/*%FSM</STATEINIT""">*/;
+                         "private [""_sleep"",""_knowsAbout"",""_string""];"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
@@ -147,9 +145,7 @@ class FSM
                 {
                         name = "System";
                         itemno = 2;
-                        init = /*%FSM<STATEINIT""">*/"// _units = [];" \n
-                         "" \n
-                         "_sleep = (time + 5);" \n
+                        init = /*%FSM<STATEINIT""">*/"_sleep = (time + 5);" \n
                          "" \n
                          "if (units _group findIf { (alive _x) } == -1) exitWith" \n
                          "{" \n
@@ -170,7 +166,7 @@ class FSM
                          "" \n
                          "if (_knowsAbout > 0) then" \n
                          "{" \n
-                         "	[_enemy, _group, _logic] call (GLX_System_F select 1);" \n
+                         "	_units = [_enemy, _group, _logic] call (GLX_System_F select 1);" \n
                          "	" \n
                          "	// player sideChat format [""GLX_System.FSM > %1"", _group];" \n
                          "};" \n
