@@ -1,0 +1,100 @@
+/*%FSM<COMPILE "G:\ARMA\ArmA3\Tools\FSMEditor\scriptedFSM.cfg, GLX_KnowsAbout">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Initialize",0,4346,-50.000000,-150.000000,50.000000,-100.000000,0.000000,"Initialize"};
+item1[] = {"Always",8,218,-50.000000,-50.000000,50.000000,0.000000,0.000000,"Always"};
+item2[] = {"KnowsAbout",2,250,-50.000000,50.000000,50.000000,100.000000,0.000000,"KnowsAbout"};
+item3[] = {"Time",4,218,-50.000000,150.000000,50.000000,200.000000,0.000000,"Time"};
+link0[] = {0,1};
+link1[] = {1,2};
+link2[] = {2,3};
+link3[] = {3,2};
+globals[] = {0.000000,0,0,0,0,640,480,1,5,6316128,1,-497.107269,493.618317,466.306091,-323.978516,1122,895,1};
+window[] = {2,-1,-1,-1,-1,1137,250,1690,250,3,1140};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "GLX_KnowsAbout";
+        class States
+        {
+                /*%FSM<STATE "Initialize">*/
+                class Initialize
+                {
+                        name = "Initialize";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/"/*  ////////////////////////////////////////////////////////////////////////////////" \n
+                         "\   \ GLX- A.I Improvement Project" \n
+                         " \   \------------------------------------------------------------------------------" \n
+                         "  \   \ KnowsAbout F.S.M." \n
+                         "   \   \----------------------------------------------------------------------------" \n
+                         "   /   / By =\SNKMAN/=" \n
+                         "  /   /-----------------------------------------------------------------------------" \n
+                         "*/   ///////////////////////////////////////////////////////////////////////////////" \n
+                         "private [""_time"",""_groups"",""_count"",""_group"",""_string""];"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Always">*/
+                                class Always
+                                {
+                                        itemno = 1;
+                                        priority = 0.000000;
+                                        to="KnowsAbout";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "KnowsAbout">*/
+                class KnowsAbout
+                {
+                        name = "KnowsAbout";
+                        itemno = 2;
+                        init = /*%FSM<STATEINIT""">*/"_time = (time + 1);" \n
+                         "" \n
+                         "_groups = (GLX_Groups select 0);" \n
+                         "" \n
+                         "_groups = _groups - (GLX_Reinforcement select 0);" \n
+                         "" \n
+                         "_count = 0;" \n
+                         "" \n
+                         "for ""_count"" from _count to (count _groups - 1) do" \n
+                         "{" \n
+                         "	_group = (_groups select _count);" \n
+                         "	" \n
+                         "	if (units _group findIf { (alive _x) } > -1) then" \n
+                         "	{" \n
+                         "		_string = (_group getVariable ""GLX_Disable"");" \n
+                         "		" \n
+                         "		if (_string isEqualTo ""GLX_Init"") exitWith {};" \n
+                         "		" \n
+                         "		[_group] call (GLX_KnowsAbout_F select 0);" \n
+                         "	};" \n
+                         "};"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Time">*/
+                                class Time
+                                {
+                                        itemno = 3;
+                                        priority = 0.000000;
+                                        to="KnowsAbout";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"(time > _time)"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="Initialize";
+        finalStates[] =
+        {
+        };
+};
+/*%FSM</COMPILE>*/

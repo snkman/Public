@@ -1,0 +1,248 @@
+/*%FSM<COMPILE "G:\ARMA\ArmA3\Tools\FSMEditor\scriptedFSM.cfg, GLX_System">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Initialize",0,4346,-50.000000,-150.000000,50.000000,-100.000000,0.000000,"Initialize"};
+item1[] = {"True",8,218,-50.000000,-50.000000,50.000000,0.000000,0.000000,"True"};
+item2[] = {"System",2,250,-50.000000,50.000000,50.000000,100.000000,0.000000,"System"};
+item3[] = {"Sleep",4,218,-50.000000,150.000000,50.000000,200.000000,0.000000,"Sleep"};
+item4[] = {"Bool",4,218,100.000000,50.000000,200.000000,100.000000,1.000000,"Bool"};
+item5[] = {"End",1,250,100.000000,150.000000,200.000000,200.000000,0.000000,"End"};
+link0[] = {0,1};
+link1[] = {1,2};
+link2[] = {2,3};
+link3[] = {2,4};
+link4[] = {3,2};
+link5[] = {4,5};
+globals[] = {0.000000,0,0,0,0,640,480,1,7,6316128,1,-388.261749,450.928467,461.363647,-391.162170,881,895,1};
+window[] = {2,-1,-1,-32000,-32030,1017,250,1690,250,3,899};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "GLX_System";
+        class States
+        {
+                /*%FSM<STATE "Initialize">*/
+                class Initialize
+                {
+                        name = "Initialize";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/"/*  ////////////////////////////////////////////////////////////////////////////////" \n
+                         "\   \ GLX- A.I Improvement Project" \n
+                         " \   \------------------------------------------------------------------------------" \n
+                         "  \   \ System F.S.M." \n
+                         "   \   \----------------------------------------------------------------------------" \n
+                         "   /   / By =\SNKMAN/=" \n
+                         "  /   /-----------------------------------------------------------------------------" \n
+                         "*/   ///////////////////////////////////////////////////////////////////////////////" \n
+                         "params [""_enemy"",""_group"",""_logic""];" \n
+                         "" \n
+                         "private _time = 0;" \n
+                         "" \n
+                         "private _delay = 0;" \n
+                         "" \n
+                         "private _units = [];" \n
+                         "" \n
+                         "private _bool = True;" \n
+                         "" \n
+                         "private _marker = """";" \n
+                         "" \n
+                         "private _end = False;" \n
+                         "" \n
+                         "// private _knowsAbout = 0;" \n
+                         "" \n
+                         "private _icon = objNull;" \n
+                         "" \n
+                         "if (floor (random 100) < 50) then" \n
+                         "{" \n
+                         "	_bool = False;" \n
+                         "	" \n
+                         "	_group setCombatMode ""RED"";" \n
+                         "};" \n
+                         "" \n
+                         "if (floor (random 100) < 50) then" \n
+                         "{" \n
+                         "	_group setSpeedMode ""FULL"";" \n
+                         "};" \n
+                         "" \n
+                         "private _leader = (leader _group);" \n
+                         "" \n
+                         "private _position = (getPos _leader);" \n
+                         "" \n
+                         "private _knowsAbout = (_group knowsAbout vehicle _enemy);" \n
+                         "" \n
+                         "if (_knowsAbout > 0) then" \n
+                         "{" \n
+                         "	_units = (units _group);" \n
+                         "	" \n
+                         "	_units doWatch (getPos _enemy);" \n
+                         "	" \n
+                         "	player sideChat format [""GLX_System.FSM > KnowsAbout > %1 > %2 > %3"", _group, _enemy, _knowsAbout];" \n
+                         "};" \n
+                         "" \n
+                         "_group setVariable [""GLX_Move"", _position];" \n
+                         "" \n
+                         "(GLX_Reinforcement select 0) pushBack _group;" \n
+                         "" \n
+                         "(GLX_Reinforcement select 1) pushBack _group;" \n
+                         "" \n
+                         "_group setVariable [""GLX_Time"", (time + (GLX_AI select 3) ) ];" \n
+                         "" \n
+                         "private _array = (_logic getVariable ""GLX_Random"");" \n
+                         "" \n
+                         "private _random = selectRandom _array;" \n
+                         "" \n
+                         "[_group, _logic, _random] call (GLX_Logic_F select 2);" \n
+                         "" \n
+                         "private _groups = (_logic getVariable ""GLX_Reinforcement"");" \n
+                         "" \n
+                         "_groups pushBack _group;" \n
+                         "" \n
+                         "private _array = _groups - (GLX_Move select 0);" \n
+                         "" \n
+                         "if (count _array > 2) then" \n
+                         "{" \n
+                         "	_array = [-1, 0, 1];" \n
+                         "	" \n
+                         "	// _array = [0];" \n
+                         "	" \n
+                         "	_random = selectRandom _array;" \n
+                         "	" \n
+                         "	_logic setVariable [""GLX_Random"", _array];" \n
+                         "};" \n
+                         "" \n
+                         "[_enemy, _group, _logic] spawn (GLX_Unassign_F select 0);" \n
+                         "" \n
+                         "// player sideChat format [""GLX_System.FSM > Random > %1 > %2"", _group, _random];" \n
+                         "" \n
+                         "if (GLX_Debug select 1) then" \n
+                         "{" \n
+                         "	_marker = [_group, ""colorWhite""] call (GLX_Marker_F select 0);" \n
+                         "};" \n
+                         "" \n
+                         "if (GLX_Debug select 2) then" \n
+                         "{" \n
+                         "	_icon = createVehicle [""Sign_Arrow_Large_Pink_F"", (getPos _leader), [], 0, ""CAN_COLLIDE""];" \n
+                         "};" \n
+                         "" \n
+                         "private [""_units"",""_sleep"",""_knowsAbout"",""_string""];"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "True">*/
+                                class True
+                                {
+                                        itemno = 1;
+                                        priority = 0.000000;
+                                        to="System";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "System">*/
+                class System
+                {
+                        name = "System";
+                        itemno = 2;
+                        init = /*%FSM<STATEINIT""">*/"// _units = [];" \n
+                         "" \n
+                         "_sleep = (time + 5);" \n
+                         "" \n
+                         "if (units _group findIf { (alive _x) } == -1) exitWith" \n
+                         "{" \n
+                         "	_end = True;" \n
+                         "};" \n
+                         "" \n
+                         "if ( [_group, _logic] call (GLX_Time_F select 0) ) exitWith" \n
+                         "{" \n
+                         "	_end = True;" \n
+                         "};" \n
+                         "" \n
+                         "_enemy = [_enemy, _group, _logic] call GLX_Enemy_F;" \n
+                         "" \n
+                         "if (alive _enemy) then" \n
+                         "{" \n
+                         "	_knowsAbout = (_group knowsAbout vehicle _enemy);" \n
+                         "};" \n
+                         "" \n
+                         "if (_knowsAbout > 0) then" \n
+                         "{" \n
+                         "	[_enemy, _group, _logic] call (GLX_System_F select 1);" \n
+                         "	" \n
+                         "	// player sideChat format [""GLX_System.FSM > %1"", _group];" \n
+                         "};" \n
+                         "" \n
+                         "if (time > _time) then" \n
+                         "{" \n
+                         "	if (_knowsAbout > 0) then" \n
+                         "	{" \n
+                         "		_time = (time + 5);" \n
+                         "	}" \n
+                         "	else" \n
+                         "	{" \n
+                         "		_time = (time + 15);" \n
+                         "	};" \n
+                         "	" \n
+                         "	_string = (_group getVariable ""GLX_Disable"");" \n
+                         "	" \n
+                         "	if (_string isEqualTo ""GLX_Move"") exitWith {};" \n
+                         "	" \n
+                         "	_time = [_enemy, _group, _logic] call (GLX_Move_F select 0);" \n
+                         "	" \n
+                         "	// player sideChat format [""GLX_System.FSM > %1 > %2 > %3 > %4"", _group, _random, (_time - time), (combatMode _group) ];" \n
+                         "};" \n
+                         "" \n
+                         "_units = [];" \n
+                         "" \n
+                         "// player sideChat format [""GLX_System.FSM > %1 > %2 > %3"", _group, time, _sleep];"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Bool">*/
+                                class Bool
+                                {
+                                        itemno = 4;
+                                        priority = 1.000000;
+                                        to="End";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"(_end)"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Sleep">*/
+                                class Sleep
+                                {
+                                        itemno = 3;
+                                        priority = 0.000000;
+                                        to="System";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"(time > _sleep)"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "End">*/
+                class End
+                {
+                        name = "End";
+                        itemno = 5;
+                        init = /*%FSM<STATEINIT""">*/"[_enemy, _group, _logic] call (GLX_System_F select 2);"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="Initialize";
+        finalStates[] =
+        {
+                "End",
+        };
+};
+/*%FSM</COMPILE>*/
