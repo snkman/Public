@@ -12,7 +12,7 @@ GLX_Marker_F = [
 	
 	if (getMarkerPos _marker isEqualTo [0,0,0] ) then
 	{
-		_marker = createMarker [_marker, [0,0,0] ];
+		_marker = createMarker [_marker, (getPos leader _object) ];
 		
 		_marker setMarkerSize [1,1];
 		
@@ -98,9 +98,24 @@ GLX_Marker_F = [
 			_type = _type + " > Location";
 		};
 		
+		if (group _unit in (GLX_Advancing select 0) ) then
+		{
+			_type = _type + " > Advancing";
+		};
+		
+		if (group _unit in (GLX_Watch select 0) ) then
+		{
+			_type = _type + " > Watch";
+		};
+		
+		if (_unit in (GLX_Take_Cover select 0) ) then
+		{
+			_type = _type + " > Take Cover";
+		};
+		
 		if (_unit in (GLX_House_Search select 0) ) then
 		{
-			_type = "House Search";
+			_type = _type + " > House Search";
 		};
 		
 		if (_unit == leader _unit) then
@@ -124,7 +139,7 @@ GLX_Marker_F = [
 			_marker setMarkerColor "colorWhite";
 		};
 		
-		if (isPlayer _unit) then
+		if (_unit in GLX_Players) then
 		{
 			_marker setMarkerColor "colorBlue";
 		};

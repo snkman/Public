@@ -10,18 +10,21 @@ GLX_Debug_F = [
 	
 	_array = _this;
 	
-	private _header = _array call (GLX_Header_F select 0);
-	
-	private _text = "<t size='1.3'> <t color='#0000ff'>Sctipt Based</t> <t color='#bebebe'></t></t>";
-	
-	if (GLX_Path isEqualTo "\GLX_System\") then
+	if (GLX_Debug select 0) then
 	{
-		_text = "<t size='1.3'> <t color='#0000ff'>AddOn Based</t> <t color='#bebebe'></t></t>";
+		private _header = _array call (GLX_Header_F select 0);
+		
+		private _text = "<t size='1.3'> <t color='#0000ff'>Sctipt Based</t> <t color='#bebebe'></t></t>";
+		
+		if (GLX_Path isEqualTo "\GLX_System\") then
+		{
+			_text = "<t size='1.3'> <t color='#0000ff'>AddOn Based</t> <t color='#bebebe'></t></t>";
+		};
+		
+		_string = parseText (_header + _text);
+		
+		hint _string;
 	};
-	
-	_string = parseText (_header + _text);
-	
-	hint _string;
 	
 	True
 	
