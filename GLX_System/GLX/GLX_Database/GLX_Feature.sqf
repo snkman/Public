@@ -13,15 +13,22 @@ if (isNil "GLX_Feature") then
 		50,
 		75,
 		50,
-		35,
-		15
+		
+		50,
+		15,
+		
+		// 5
+		50,
+		
+		True,
+		[15, 50, 300, 700]
 	];
 	
 	if (isFilePatchingEnabled) then
 	{
 		if ("UserConfig\GLX\GLX_Feature.sqf" call GLX_Exist_F) then
 		{
-			call compile preprocessFileLineNumbers "UserConfig\GLX\GLX_Feature.sqf";
+			call compileFinal preprocessFileLineNumbers "UserConfig\GLX\GLX_Feature.sqf";
 		};
 	};
 };

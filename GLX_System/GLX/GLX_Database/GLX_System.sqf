@@ -18,7 +18,7 @@ if (isNil "GLX_System") then
 	{
 		if ("UserConfig\GLX\GLX_System.sqf" call GLX_Exist_F) then
 		{
-			call compile preprocessFileLineNumbers "UserConfig\GLX\GLX_System.sqf";
+			call compileFinal preprocessFileLineNumbers "UserConfig\GLX\GLX_System.sqf";
 		};
 	};
 };

@@ -12,6 +12,7 @@ if (isNil "GLX_Debug") then
 	[
 		False,
 		False,
+		False,
 		False
 	];
 	
@@ -19,7 +20,7 @@ if (isNil "GLX_Debug") then
 	{
 		if ("UserConfig\GLX\GLX_Debug.sqf" call GLX_Exist_F) then
 		{
-			call compile preprocessFileLineNumbers "UserConfig\GLX\GLX_Debug.sqf";
+			call compileFinal preprocessFileLineNumbers "UserConfig\GLX\GLX_Debug.sqf";
 		};
 	};
 };

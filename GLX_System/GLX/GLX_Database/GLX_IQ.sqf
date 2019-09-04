@@ -17,7 +17,7 @@ if (isNil "GLX_IQ") then
 	{
 		if ("UserConfig\GLX\GLX_IQ.sqf" call GLX_Exist_F) then
 		{
-			call compile preprocessFileLineNumbers "UserConfig\GLX\GLX_IQ.sqf";
+			call compileFinal preprocessFileLineNumbers "UserConfig\GLX\GLX_IQ.sqf";
 		};
 	};
 };

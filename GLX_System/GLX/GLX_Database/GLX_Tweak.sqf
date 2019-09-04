@@ -10,14 +10,15 @@ if (isNil "GLX_Tweak") then
 {
 	GLX_Tweak =
 	[
-		[5, 10, 15, 10, 5]
+		[5, 10, 15, 10, 5],
+		75
 	];
 	
 	if (isFilePatchingEnabled) then
 	{
 		if ("UserConfig\GLX\GLX_Tweak.sqf" call GLX_Exist_F) then
 		{
-			call compile preprocessFileLineNumbers "UserConfig\GLX\GLX_Tweak.sqf";
+			call compileFinal preprocessFileLineNumbers "UserConfig\GLX\GLX_Tweak.sqf";
 		};
 	};
 };
