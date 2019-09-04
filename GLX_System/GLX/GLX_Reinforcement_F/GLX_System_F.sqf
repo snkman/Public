@@ -10,7 +10,7 @@ GLX_System_F = [
 	// ////////////////////////////////////////////////////////////////////////////
 	{params ["_enemy","_group","_logic"];
 	
-	private _time = 0;
+	_time = 0;
 	
 	private _delay = 0;
 	
@@ -34,9 +34,9 @@ GLX_System_F = [
 	
 	private _leader = (leader _group);
 	
-	(units _group) doWatch (getPos _enemy);
+	_position = (getPos _leader);
 	
-	private _position = (getPos _leader);
+	(units _group) doWatch (getPos _enemy);
 	
 	_group setVariable ["GLX_Move", _position];
 	
@@ -60,9 +60,7 @@ GLX_System_F = [
 	
 	if (count _array > 2) then
 	{
-		_array = [1, -1];
-		
-		// _array = [5, -5, 7, -7, 13, -13, 15, -15];
+		_array = [-1, 0, 1];
 		
 		_random = selectRandom _array;
 		
@@ -71,21 +69,21 @@ GLX_System_F = [
 		// player sideChat format ["GLX_System > Random > %1 > %2", _group, _random];
 	};
 	
-	[_enemy, _group, _logic] spawn (GLX_UnAssign_F select 0);
+	[_enemy, _group, _logic] spawn (GLX_Unassign_F select 0);
 	
 	// player sideChat format ["GLX_System > Random > %1 > %2", _group, _random];
 	
-	if (GLX_Debug select 0) then
+	if (GLX_Debug select 1) then
 	{
 		_marker = [_group, "colorWhite"] call (GLX_Marker_F select 0);
 	};
 	
-	if (GLX_Debug select 1) then
+	if (GLX_Debug select 2) then
 	{
 		_icon = createVehicle ["Sign_Arrow_Large_Pink_F", (getPos _leader), [], 0, "CAN_COLLIDE"];
 	};
 	
-	private ["_units","_enemy","_knowsAbout"];
+	private ["_units","_enemy","_knowsAbout","_string"];
 	
 	while { (units _group findIf { (alive _x) } > -1) } do
 	{
@@ -137,19 +135,21 @@ GLX_System_F = [
 	// ////////////////////////////////////////////////////////////////////////////
 	{params ["_enemy","_group","_logic"];
 	
+	// _logic setPos (getPos _enemy);
+	
 	if (alive _enemy) then
 	{
+		_logic setPos (getPos _enemy);
+		
 		_units = [_enemy, _group] call GLX_Visible_F;
 	};
-	
-	_logic setPos (getPos _enemy);
 	
 	if (_units findIf { (alive _x) } > -1) then
 	{
 		[_group, _logic] call (GLX_Time_F select 1);
 	};
 	
-	if (GLX_Debug select 0) then
+	if (GLX_Debug select 1) then
 	{
 		(str _logic) setMarkerPos [ (getPos _logic select 0), (getPos _logic select 1) + 30, 0];
 	};
@@ -191,10 +191,7 @@ GLX_System_F = [
 		};
 	};
 	
-	if (floor (random 100) < 100) then
-	{
-		[_enemy, _group, _units] call (GLX_Take_Cover_F select 0);
-	};
+	[_enemy, _group, _units] call (GLX_Take_Cover_F select 0);
 	
 	True
 	
@@ -225,18 +222,24 @@ GLX_System_F = [
 	{
 		private _position = waypointPosition [_group, 0];
 		
+		player sideChat str _position;
+		
 		_group move _position;
 		
 		_units allowGetIn True;
 		
 		_units orderGetIn True;
 		
-		if (GLX_Debug select 0) then
+		if (GLX_Debug select 1) then
 		{
 			(str _group) setMarkerPos _position;
 			
 			(str _group) setMarkerText format ["%1", _group];
 		};
+		
+		private _vehicle = (vehicle leader _group);
+		
+		[_group, _vehicle] spawn (GLX_Helicopter_F select 1);
 		
 		{_x forceSpeed -1; _x setUnitPos "AUTO"} count _units;
 	}
@@ -260,7 +263,7 @@ GLX_System_F = [
 	
 	if (_groups isEqualTo [] ) then
 	{
-		if (GLX_Debug select 0) then
+		if (GLX_Debug select 1) then
 		{
 			deleteMarker (str _logic);
 		};

@@ -1,7 +1,7 @@
 #include "GLX_Macros.hpp"
 
 /*  ////////////////////////////////////////////////////////////////////////////////
-\   \ GLX - A.I Project
+\   \ GLX - A.I. Improvement Project
  \   \------------------------------------------------------------------------------
   \   \ Reinforcement Function
    \   \----------------------------------------------------------------------------
@@ -18,8 +18,6 @@ private _side = (side _group);
 
 private _leader = (leader _group);
 
-private _array = ["GLX_Move","GLX_Reinforcement"];
-
 if (_group in (GLX_Location select 0) ) then
 {
 	_groups = (_group getVariable "GLX_Location");
@@ -32,10 +30,14 @@ else
 {
 	_groups = (GLX_Groups select 0);;
 	
+	_groups = _groups - (GLX_Location select 0);
+	
 	_groups = _groups - (GLX_Reinforcement select 0);
 	
 	_groups append (GLX_Join select 0);
 };
+
+private _array = ["GLX_Move","GLX_Reinforcement"];
 
 private _distance = [_group] call (GLX_Radio_F select 0);
 
@@ -74,7 +76,7 @@ if (_return isEqualType grpNull) then
 		GLX_DeleteAt(GLX_Join,0,_group);
 	};
 	
-	[_enemy, _group, _logic] spawn (GLX_System_F select 0);
+	[_enemy, _group, _logic] execFSM (GLX_Path+"GLX\GLX_ExecFSM\GLX_System.fsm");
 	
 	// player sideChat format ["GLX_Reinforcement_F > %1", _group];
 };

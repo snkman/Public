@@ -34,18 +34,16 @@ GLX_Logic_F = [
 		
 		_logic setVariable ["GLX_Time", _time];
 		
+		_logic setVariable ["GLX_Random", [-1, 1] ];
+		
 		_logic setVariable ["GLX_Reinforcement", [] ];
 		
 		_logic setVariable ["GLX_Enemy", (group _enemy) ];
 		
-		if (GLX_Debug select 0) then
+		if (GLX_Debug select 1) then
 		{
 			[_logic, "colorRed"] call (GLX_Marker_F select 0);
 		};
-		
-		_logic setVariable ["GLX_Random", [1, -1] ];
-		
-		// _logic setVariable ["GLX_Random", [5, -5, 7, -7, 13, -13, 15, -15] ];
 		
 		// player sideChat format ["GLX_Logic_F > Logic > %1 > %2", _group, _logic];
 	};
@@ -94,17 +92,13 @@ GLX_Logic_F = [
 	
 	private _array = [1];
 	
-	// private _array = [5, 7, 13, 15];
-	
 	private _string = (_group getVariable "GLX_Disable");
 	
-	if (_string isEqualTo "GLX_Move") then
+	if ( (_string isEqualTo "GLX_Move") || (vehicle leader _group isKindOf "Air") ) then
 	{
 		if (_random < 0) then
 		{
 			_array = [-1];
-			
-			// _array = [-5, -7, -13, -15];
 		};
 		
 		(GLX_Move select 0) pushBack _group;
@@ -114,8 +108,6 @@ GLX_Logic_F = [
 		if (_random > 0) then
 		{
 			_array = [-1];
-			
-			// _array = [-5, -7, -13, -15];
 		};
 	};
 	

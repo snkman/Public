@@ -29,7 +29,7 @@ GLX_Time_F = [
 		};
 	};
 	
-	if (GLX_Debug select 0) then
+	if (GLX_Debug select 1) then
 	{
 		(str _logic) setMarkerText format ["%1 > %2", _groups, (_time - time) ];
 	};
