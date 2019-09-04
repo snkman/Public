@@ -193,7 +193,7 @@ GLX_System_F = [
 	
 	[_enemy, _group, _units] call (GLX_Take_Cover_F select 0);
 	
-	True
+	_units
 	
 	},
 	
@@ -222,8 +222,6 @@ GLX_System_F = [
 	{
 		private _position = waypointPosition [_group, 0];
 		
-		player sideChat str _position;
-		
 		_group move _position;
 		
 		_units allowGetIn True;
@@ -242,6 +240,8 @@ GLX_System_F = [
 		[_group, _vehicle] spawn (GLX_Helicopter_F select 1);
 		
 		{_x forceSpeed -1; _x setUnitPos "AUTO"} count _units;
+		
+		// player sideChat format ["GLX_System_F > %1 > %2", _group, _position];
 	}
 	else
 	{
