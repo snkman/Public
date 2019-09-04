@@ -11,7 +11,7 @@ class CfgPatches
 	{
 		units[] = {};
 		weapons[] = {};
-		version = "1.0.13";
+		version = "1.0.11";
 		requiredVersion = 1.82;
 		versionDesc = "Group Link - X";
 		requiredAddons[] = {"A3_Data_F","A3_Characters_F"};
@@ -94,7 +94,7 @@ class RscDisplayMain : RscStandardDisplay
 			x = "(SafeZoneH + SafeZoneX) - (1 - 0.45)";
 			y = "(SafeZoneH + SafeZoneY) - (1 - 0.88)";
 
-			text = "Version: 1.0.13 W.I.P.";
+			text = "Version: 1.0.11 W.I.P.";
 		};
 	};
 };
