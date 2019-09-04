@@ -8,49 +8,11 @@ GLX_Rel_Dir_To_F =
 	// ////////////////////////////////////////////////////////////////////////////
 	{params ["_object","_position"];
 	
-	private "_direction";
-	
-	if (isNull objectParent _object) then
-	{
-		_direction = (_object getRelDir _position);
-	}
-	else
-	{
-		private _weaponPosition = [];
-		
-		if (assignedVehicleRole _object select 0 == "Cargo") then
-		{
-			_weaponPosition = (_object weaponDirection currentWeapon _object);
-		}
-		else
-		{
-			private _vehicle = (vehicle _object);
-			
-			if (_vehicle isKindOf "Tank") then
-			{
-				_weaponPosition = (_vehicle weaponDirection currentWeapon _vehicle);
-			};
-		};
-		
-		if (_weaponPosition isEqualTo [] ) exitWith
-		{
-			_direction = (_object getRelDir _position);
-		};
-		
-		private _weaponDirection = (_weaponPosition select 0) atan2 (_weaponPosition select 1);
-		
-		_weaponDirection = _weaponDirection - (_object getDir _position);
-		
-		if (_weaponDirection < 0) then {_weaponDirection = _weaponDirection + 360};
-		
-		if (_weaponDirection > 360) then {_weaponDirection = _weaponDirection - 360};
-		
-		_direction = _weaponDirection;
-	};
+	private	_direction = (_object getRelDir _position);
 	
 	_direction
 };
-	
+
 GLX_Real_Pos_F =
 
 	// ////////////////////////////////////////////////////////////////////////////
@@ -83,7 +45,7 @@ GLX_Enemy_F =
 	// ////////////////////////////////////////////////////////////////////////////
 	// By =\SNKMAN/=
 	// ////////////////////////////////////////////////////////////////////////////
-	{params ["_enemy","_group"];
+	{params ["_enemy","_group","_logic"];
 	
 	private _units = allUnits;
 	
@@ -107,6 +69,8 @@ GLX_Enemy_F =
 		if (_group knowsAbout vehicle _unit > 0 ) exitWith
 		{
 			_enemy = _unit;
+			
+			_logic setVariable ["GLX_Enemy", (group _enemy) ];
 		};
 	};
 	
@@ -266,9 +230,11 @@ GLX_Spawn_F =
 	// ////////////////////////////////////////////////////////////////////////////
 	// By =\SNKMAN/=
 	// ////////////////////////////////////////////////////////////////////////////
-	{params ["_groups"];
+	{params ["_groups","_bool"];
 	
-	private ["_group","_side","_objects","_units"];
+	private _array = ["GLX_Init","GLX_Move","GLX_Request","GLX_Reinforcement"];
+	
+	private ["_group","_side","_leader","_playable","_objects","_units"];
 	
 	private _count = 0;
 	
@@ -280,19 +246,16 @@ GLX_Spawn_F =
 		
 		if (_side in (GLX_System select 1) ) then
 		{
-			if (isPlayer leader _group) exitWith
+			_leader = (leader _group);
+			
+			if (_leader in GLX_Players) exitWith
 			{
-				if (GLX_Debug select 0) then
+				if (GLX_Debug select 1) then
 				{
-					[leader _group] spawn (GLX_Marker_F select 1);
+					[_leader] spawn (GLX_Marker_F select 1);
 				};
 				
 				// player sideChat format ["GLX_Extension_F > GLX_Spawn_F > Player > %1", _group];
-			};
-			
-			if (isNil { (_group getVariable "GLX_Disable") } ) then
-			{
-				_group setVariable ["GLX_Disable", ""];
 			};
 			
 			_objects = [];
@@ -301,9 +264,20 @@ GLX_Spawn_F =
 			
 			_objects = (_objects arrayIntersect _objects);
 			
+			if (isNil { (_group getVariable "GLX_Disable") } ) then
+			{
+				_group setVariable ["GLX_Disable", ""];
+				
+				// if (_objects isEqualTo [] ) exitWith {};
+				
+				// [_group, _array, _objects] call GLX_Trigger_F;
+			};
+			
 			[_group, _objects] call GLX_Location_F;
 			
-			if (time > 0) then
+			[_group, _array, _objects] call GLX_Trigger_F;
+			
+			if (_bool) then
 			{
 				private _count = 0;
 				
@@ -313,11 +287,13 @@ GLX_Spawn_F =
 					
 					_count = _count + 1;
 				};
+				
+				[_group, 0] setWaypointPosition [_leader, 0];
 			};
 			
 			if (True) then
 			{
-				if (local leader _group) exitWith {};
+				if (local _leader) exitWith {};
 				
 				_group setGroupOwner 2;
 			};
@@ -328,7 +304,7 @@ GLX_Spawn_F =
 			
 			{_x disableAI "TARGET";
 			
-			if (GLX_Debug select 0) then
+			if (GLX_Debug select 1) then
 			{
 				[_x] spawn (GLX_Marker_F select 1);
 			};
@@ -349,21 +325,39 @@ GLX_DayTime_F =
 	// ////////////////////////////////////////////////////////////////////////////
 	// Daytime Function
 	// ////////////////////////////////////////////////////////////////////////////
-	// By CarlGustaffa
+	// By Karel Moricky
+	// Modified by Killzone_Kid
 	// ////////////////////////////////////////////////////////////////////////////
+	{params ["_date"];
+	
+	private _return = True;
+	
+	private _equinox = (360 * dateToNumber _date) - (360 * 81 / 365);
+	private _inc = asin (sin 23.44 * sin _equinox);
+	private _latitude = - getNumber (configFile >> "cfgWorlds" >> worldName >> "latitude");
+	
+	private _angle = -tan _latitude * tan _inc;
+	
+	private _value = (acos _angle / 15);
+	
+	private _day = 11 - _value;
+	
+	_day = (round _day);
+	
+	if (dayTime < _day) then
 	{
-	
-	private _return = False;
-	
-	private _latitude = -1 * getNumber (configFile >> "CfgWorlds" >> worldName >> "latitude");
-	private _year = 360 * (dateToNumber date);
-	private _day = (dayTime / 24) * 360;
-	
-	private _result = ( (12 * cos (_year) - 78) * cos (_latitude) * cos (_day) ) - (24 * sin (_latitude) * cos (_year) );
-	
-	if (_result > 0) then
+		_return = False;
+	}
+	else
 	{
-		_return = True;
+		_day = 13 + _value;
+		
+		_day = (round _day);
+		
+		if (dayTime > _day) then
+		{
+			_return = False;
+		};
 	};
 	
 	_return
