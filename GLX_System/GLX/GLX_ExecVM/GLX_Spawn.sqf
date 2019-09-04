@@ -6,9 +6,11 @@
    /   / By =\SNKMAN/=
   /   /-----------------------------------------------------------------------------
 */   ///////////////////////////////////////////////////////////////////////////////
-private ["_array","_groups"];
+private ["_array","_bool","_groups"];
 
 _array = [];
+
+_bool = False;
 
 while { (True) } do
 {
@@ -20,13 +22,15 @@ while { (True) } do
 		
 		_array append _groups;
 		
-		if (time > 0) then
+		if (_bool) then
 		{
-			[_groups] spawn GLX_Spawn_F;
+			[_groups, _bool] spawn GLX_Spawn_F;
 		}
 		else
 		{
-			[_groups] call GLX_Spawn_F;
+			[_groups, _bool] call GLX_Spawn_F;
+			
+			_bool = True;
 		};
 	};
 	

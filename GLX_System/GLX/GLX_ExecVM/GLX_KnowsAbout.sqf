@@ -1,5 +1,5 @@
 /*  ////////////////////////////////////////////////////////////////////////////////
-\   \ GLX- A.I Improvement Project
+\   \ GLX - A.I Improvement Project
  \   \------------------------------------------------------------------------------
   \   \ KnowsAbout Script
    \   \----------------------------------------------------------------------------
@@ -26,7 +26,7 @@ while { (True) } do
 			
 			if (_string isEqualTo "GLX_Init") exitWith {};
 			
-			[_group] call GLX_KnowsAbout_F;
+			[_group] call (GLX_KnowsAbout_F select 0);
 		};
 	};
 	
