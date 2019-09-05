@@ -10,33 +10,36 @@ GLX_House_Search_F = [
 	// ////////////////////////////////////////////////////////////////////////////
 	{params ["_enemy","_group","_logic"];
 	
-	private _units = (units _group);
-	
-	private _array = (GLX_House_Search select 0);
-	
-	_units = _units - _array;
-	
-	private _leader = (leader _group);
-	
-	_units deleteAt (_units find _leader);
-	
-	_units = _units select { ( (alive _x) && { (isNull objectParent _x) } ) };
-	
-	if (count _units > 1) then
+	if (floor (random 100) < (GLX_Feature select 5) ) then
 	{
-		private _unit = _units select (count _units - 1);
+		private _units = (units _group);
 		
-		private _objects = nearestObjects [_logic, ["House"], 100];
+		private _array = (GLX_House_Search select 0);
 		
-		_objects = _objects - (GLX_House_Search select 1);
+		_units = _units - _array;
 		
-		if (_objects isEqualTo [] ) exitWith {};
+		private _leader = (leader _group);
 		
-		private _object = (_objects select 0);
+		_units deleteAt (_units find _leader);
 		
-		if (_unit distance _object < 100) then
+		_units = _units select { ( (alive _x) && { (isNull objectParent _x) } ) };
+		
+		if (count _units > 1) then
 		{
-			[_unit, _group, _logic, _objects] call (GLX_House_Search_F select 1);
+			private _unit = _units select (count _units - 1);
+			
+			private _objects = nearestObjects [_logic, ["House"], 100];
+			
+			_objects = _objects - (GLX_House_Search select 1);
+			
+			if (_objects isEqualTo [] ) exitWith {};
+			
+			private _object = (_objects select 0);
+			
+			if (_unit distance _object < 100) then
+			{
+				[_unit, _group, _logic, _objects] call (GLX_House_Search_F select 1);
+			};
 		};
 	};
 	

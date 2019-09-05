@@ -74,6 +74,8 @@ GLX_Take_Cover_F = [
 		
 		if ( (_unit == _leader) || (floor (random 100) < 75) ) then
 		{
+			if (vehicle _leader isKindOf "Air") exitWith {};
+			
 			_position = (_group getVariable "GLX_Move");
 		};
 		
@@ -185,7 +187,7 @@ GLX_Take_Cover_F = [
 	
 	private _spot = objNull;
 	
-	if (GLX_Debug select 1) then
+	if (GLX_Debug select 2) then
 	{
 		_spot = createVehicle ["Sign_Arrow_Large_Blue_F", _cover, [], 0, "CAN_COLLIDE"];
 	};
@@ -221,7 +223,7 @@ GLX_Take_Cover_F = [
 		
 		if (time < _time) then
 		{
-			if (GLX_Debug select 0) then
+			if (GLX_Debug select 1) then
 			{
 				_spot = createVehicle ["Sign_Arrow_Large_Green_F", _cover, [], 0, "CAN_COLLIDE"];
 			};

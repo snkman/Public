@@ -10,8 +10,10 @@ GLX_Flare_F = [
 	
 	private _units = (units _group);
 	
-	if ( (floor (random 100) < (GLX_Feature select 2) ) || ( { (_units findIf { ( (alive _x) && (hmd _x isEqualTo "") ) } > -1) } ) ) then
+	if (floor (random 100) < (GLX_Feature select 2) ) then
 	{
+		// if ( { (_units findIf { ( (alive _x) && (hmd _x isEqualTo "") ) } > -1) } ) exitWith {};
+		
 		private ["_unit","_muzzle"];
 		
 		private _count = 0;
@@ -32,8 +34,6 @@ GLX_Flare_F = [
 				
 				sleep 5 + (random 15);
 				
-				private ["_random","_direction","_range","_distance","_flare"];
-				
 				private _count = 3 + (random 5);
 				
 				if (isNil { (_unit getVariable "GLX_Flare") } ) then
@@ -44,6 +44,8 @@ GLX_Flare_F = [
 				{
 					_count = (_unit getVariable "GLX_Flare");
 				};
+				
+				private ["_random","_direction","_range","_distance","_flare"];
 				
 				while { ( (alive _unit) && { (alive _logic) } && { (_count > 0) } ) } do
 				{
