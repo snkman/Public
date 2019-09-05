@@ -3,4 +3,6 @@ Group Link - X ( Working Title ) has been created to generally improve and enhan
 
 Official released version 1.0.09
 
-GitHub version v.1.0.10 ( Public/@GLX/AddOns/GLX_System.pbo )
+Hotfix version 1.0.10
+
+GitHub version v.1.0.11 ( Public/@GLX/AddOns/GLX_System.pbo )
