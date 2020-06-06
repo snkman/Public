@@ -6,3 +6,5 @@ Official released version 1.0.09
 Hotfix version 1.0.10
 
 GitHub version v.1.0.11 ( Public/@GLX/AddOns/GLX_System.pbo )
+
+1.0.19 not released yet!
